@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Archery Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== MAIN MENU ===== -->
+  <div id="screen-menu" class="screen active">
+    <div class="menu-card">
+      <h1 class="game-title">🏹 Archery Challenge</h1>
+      <p class="subtitle">Test your aim against wind and opponents</p>
+
+      <div class="section-label">Game Mode</div>
+      <div class="btn-group" id="mode-group">
+        <button class="mode-btn active" data-mode="vs-ai">vs AI</button>
+        <button class="mode-btn" data-mode="vs-player">2 Players</button>
+      </div>
+
+      <div id="ai-difficulty-section">
+        <div class="section-label">AI Difficulty</div>
+        <div class="btn-group" id="diff-group">
+          <button class="diff-btn active" data-diff="low">Low</button>
+          <button class="diff-btn" data-diff="medium">Medium</button>
+          <button class="diff-btn" data-diff="high">High</button>
+        </div>
+      </div>
+
+      <div class="player-names">
+        <div class="name-field">
+          <label for="p1-name">Player 1 Name</label>
+          <input type="text" id="p1-name" value="Player 1" maxlength="16" />
+        </div>
+        <div class="name-field" id="p2-name-field">
+          <label for="p2-name">Player 2 / AI Name</label>
+          <input type="text" id="p2-name" value="Player 2" maxlength="16" />
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btn-start">Start Game</button>
+    </div>
+  </div>
+
+  <!-- ===== GAME SCREEN ===== -->
+  <div id="screen-game" class="screen">
+
+    <!-- HUD top bar -->
+    <div id="hud">
+      <div class="hud-player" id="hud-p1">
+        <span class="hud-name" id="hud-p1-name">Player 1</span>
+        <span class="hud-score-label">Score</span>
+        <span class="hud-score" id="hud-p1-score">0</span>
+        <div class="hud-arrows" id="hud-p1-arrows">
+          <span class="arrow-pip" id="p1-pip-0">🏹</span>
+          <span class="arrow-pip" id="p1-pip-1">🏹</span>
+          <span class="arrow-pip" id="p1-pip-2">🏹</span>
+        </div>
+      </div>
+
+      <div class="hud-center">
+        <div id="round-label">Round 1 / 3</div>
+        <div id="turn-label">Player 1's turn</div>
+        <div id="wind-display">
+          <span id="wind-label">Wind</span>
+          <div id="wind-bar-container">
+            <div id="wind-bar-fill"></div>
+            <div id="wind-arrow-icon">➤</div>
+          </div>
+          <span id="wind-value">0.0</span>
+          <span id="wind-direction-text" style="font-size:1.3rem;">→</span>
+        </div>
+      </div>
+
+      <div class="hud-player" id="hud-p2">
+        <span class="hud-name" id="hud-p2-name">Player 2</span>
+        <span class="hud-score-label">Score</span>
+        <span class="hud-score" id="hud-p2-score">0</span>
+        <div class="hud-arrows" id="hud-p2-arrows">
+          <span class="arrow-pip" id="p2-pip-0">🏹</span>
+          <span class="arrow-pip" id="p2-pip-1">🏹</span>
+          <span class="arrow-pip" id="p2-pip-2">🏹</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Canvas -->
+    <canvas id="game-canvas"></canvas>
+
+    <!-- Aiming controls overlay -->
+    <div id="aim-controls">
+      <div id="timer-ring-container">
+        <svg id="timer-svg" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="34" class="timer-track"/>
+          <circle cx="40" cy="40" r="34" class="timer-fill" id="timer-circle"/>
+        </svg>
+        <span id="timer-text">10</span>
+      </div>
+      <div id="aim-hint">
+        <kbd>↑↓</kbd> Vertical aim &nbsp;|&nbsp; <kbd>←→</kbd> Horizontal aim &nbsp;|&nbsp; <kbd>Space</kbd> Fire
+      </div>
+    </div>
+
+    <!-- Shot result pop-up -->
+    <div id="shot-result" class="hidden">
+      <div id="shot-result-inner">
+        <div id="shot-score-big"></div>
+        <div id="shot-zone-label"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== RESULTS SCREEN ===== -->
+  <div id="screen-results" class="screen">
+    <div class="results-card">
+      <div id="result-trophy">🏆</div>
+      <h2 id="result-headline">Player 1 Wins!</h2>
+      <div id="result-scores">
+        <div class="result-row">
+          <span class="res-name" id="res-p1-name">Player 1</span>
+          <span class="res-score" id="res-p1-score">0</span>
+        </div>
+        <div class="result-row">
+          <span class="res-name" id="res-p2-name">Player 2</span>
+          <span class="res-score" id="res-p2-score">0</span>
+        </div>
+      </div>
+      <div id="shot-breakdown">
+        <div class="breakdown-title">Shot Breakdown</div>
+        <div id="breakdown-grid"></div>
+      </div>
+      <div class="results-btns">
+        <button class="btn-primary" id="btn-rematch">Rematch</button>
+        <button class="btn-secondary" id="btn-menu">Main Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
